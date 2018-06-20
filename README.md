@@ -7,9 +7,11 @@ The following chunk consist of necessary packages required to execute the practi
 source("http://www.bioconductor.org/biocLite.R")
 # list of packages
 
+# bioc package
 pkgs_bioc <- c("Biostrings", "seqinr", "DESeq2", "ArrayExpress", "Biobase", "annotate", "GEOquery", "phangorn",
                "BiocInstaller")
 
+# general packages
 pkgs_gen <- c("gcookbook", "vegan", 
           "tidyverse", "hrbrthemes", "ggplot2", "reshape2",
           "dplyr", "cluster", "rafalib", "RColorBrewer", "lme4", "vegan", "gplots")
