@@ -30,4 +30,15 @@ for(lib in install_pkg) install.packages(lib, dependencies = T, quiet = T)
 lapply(pkgs, library, character.only = T)
 
 ```
-# Necessary Dependencies in Python
+**Alternatively**
+use the `callforBio()` package to obtain the required packages for the biocomputation.
+**NOTE:** You need to have a table with only seperate columns enlisting your required packages noted during literature survey.
+Please follow the directions as follow.
+```{r}
+bioc_pkg <- as.character(read.table("./req_pkg.txt")[[1]])
+oper_pkgs <- as.character(read.table("./req_pkg.txt")[[2]])
+
+# Please run/source the function callForBio.R
+# bioC argument provides the T/F to call biocLite or not
+callForBio(bioc_pkg, oper_pkgs, bioC = F)
+```
