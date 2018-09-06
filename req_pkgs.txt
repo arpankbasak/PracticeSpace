@@ -1,0 +1,1 @@
+DECIPHER	phylotoolsdevtools	devtoolsphangorn	ggsignifggtree	igraphtreeio	parallelphyloTop	tidyverseips	hrbrthemesannotationTools	devtoolsPeptides	ggplot2msa	reshape2Biostrings	dplyrDESeq2	clusterArrayExpress	rafalibBiobase	RColorBrewerannotate	lme4GEOquery	vegangcookbook	gplotsmsa	ape	edgeR	BiocInstaller	
