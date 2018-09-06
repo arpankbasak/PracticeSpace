@@ -33,11 +33,12 @@ lapply(pkgs, library, character.only = T)
 **Alternatively**
 use the `callforBio()` package to obtain the required packages for the biocomputation.
 **NOTE:** You need to have a table with only seperate columns enlisting your required packages noted during literature survey.
+Make sure not to include any header and save the table as `.txt` tab-delim. Provide the `BioC packages` in the first column and `base` packages in the second. Re-arrange the code according to your ease.
 Please follow the directions as follow.
 ```{r}
 source("https://raw.githubusercontent.com/arpankbasak/PracticeSpace/master/callForBio.R")
-bioc_pkg <- as.character(read.table("./req_pkg.txt")[[1]])
-oper_pkgs <- as.character(read.table("./req_pkg.txt")[[2]])
+bioc_pkg <- as.character(read.table("./req_pkgs.txt", sep = "\t")[[1]])
+oper_pkgs <- as.character(read.table("./req_pkgs.txt", sep = "\t")[[2]])
 
 # Please run/source the function callForBio.R
 # bioC argument provides the T/F to call biocLite or not
