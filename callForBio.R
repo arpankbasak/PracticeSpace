@@ -31,3 +31,16 @@ callForBio <- function(bioc_pkg = NULL, oper_pkgs = NULL, bioC = T)
   else
   {print("operational package or bioC package is an empty vector")}
 }
+
+# Saturation of intensities especially for plotting heatmaps
+saturate <- function(x){
+    max <- quantile(x, .99)
+    min <- quantile(x, .01)
+    
+    idx <- (x > max)
+    x[idx] <- max
+    
+    idx <- x < min
+    x[idx] <- min
+    return(x)
+}
