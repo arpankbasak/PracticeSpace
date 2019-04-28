@@ -44,3 +44,45 @@ saturate <- function(x){
     x[idx] <- min
     return(x)
 }
+
+# Image Feature detection in tidy format
+FeatureImage <- function(mask, ref_image, channel = 2, display = FALSE, path){
+
+    lapply(list("EBImage", "tideyverse", "parallel"), require, character.only = T)
+    
+    z = channel
+    
+    # Obain binary labels for mask
+    counts.temp <- bwlabel(mask)
+    so <- stackObjects(counts.temp, img[,,z], combine = T)
+    
+    if(display != FALSE) display(colorLabels(counts.temp), method = "raster")
+
+    # Compute the segment spatial features
+    a <- as.data.frame(computeFeatures.shape(counts.temp, img[,,z]))
+    b <- as.data.frame(computeFeatures.moment(counts.temp, img[,,z]))
+    c <- as.data.frame(computeFeatures.haralick(counts.temp, img[,,z]))
+    d <- as.data.frame(computeFeatures.basic(counts.temp, img[,,z]))
+
+    dat <- cbind(a, b, c, d)
+    dat$total_counts <- max(counts.temp)
+
+    # Annotate SampleID
+    sample_id <- str_replace(x, pattern = ".png", replacement = "")
+    sample_id <- str_replace(sample_id, pattern = paste0(as.character(path), "/image_stock/"), replacement = "")
+    sample_id <- str_replace(sample_id, pattern = "/", replacement = "")
+
+    if(nrow(dat) != 0) {
+        dat <- dat %>% add_column(SampleID = sample_id, .before = 1)
+        dat <- dat %>% add_column(FeatureID = paste(sample_id, row.names(dat), sep = "_"), .before = 1)
+        
+        png(filename = paste(path, "/segmented_images/binary_segmentation_", sample_id, ".png", sep = ""), bg = "transparent")
+        display(colorLabels(counts.temp), method = "raster")
+        dev.off()
+        return(dat)
+        
+    }else {
+        message(paste("Sample ", x, " has non features (ERB) detected. Change the blur parameter for stringent masking."))
+    }
+
+}
