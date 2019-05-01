@@ -86,3 +86,10 @@ FeatureImage <- function(mask, ref_image, channel = 2, display = FALSE, path){
     }
 
 }
+
+# Setup environment
+all_env <- function() {
+  ipkg = as.data.frame(installed.packages())
+  nix = grep(x = ipkg$NeedsCompilation, pattern = "no", ignore.case = T)
+  lapply(unique(ipkg$Package[nix]), library, character.only = T)
+}
