@@ -93,3 +93,15 @@ all_env <- function() {
   nix = grep(x = ipkg$NeedsCompilation, pattern = "no", ignore.case = T)
   lapply(unique(ipkg$Package[nix]), library, character.only = T)
 }
+
+# Function to extract background from Images normalises the image data for extracting features without considering the background
+extractBackground = function(x) {
+  require(genefilter)
+  x    = log(x)
+  loc  = half.range.mode( x )
+  left = (x - loc)[ x < loc ]
+  wid  = sqrt( mean(left^2) )
+  c(loc = loc, 
+    wid = wid, 
+    thr = loc + 6 * wid)
+}
